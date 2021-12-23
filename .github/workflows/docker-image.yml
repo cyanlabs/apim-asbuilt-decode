@@ -25,7 +25,8 @@ jobs:
 
       - uses: actions/setup-node@v2
 
-      - run: npm install
+      - name: Run NPM Install in web folder
+        run: cd web; npm install
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1.12.0
