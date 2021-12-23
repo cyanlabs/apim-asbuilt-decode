@@ -82,7 +82,6 @@ def post_xml():
 
 @app.route('/process')
 def process():
-    item_encoder = ItemEncoder()
 
     file = os.path.join(app.config['UPLOAD_FOLDER'], request.args.get('filename'))
 
@@ -93,6 +92,7 @@ def process():
         })
 
     asbuilt1 = AsBuilt(file)
+    item_encoder = ItemEncoder(asbuilt1)
 
     output = []
     for block in range(1, len(asbuilt1.blocks) + 1):

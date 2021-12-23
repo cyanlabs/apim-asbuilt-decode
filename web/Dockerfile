@@ -4,14 +4,14 @@ FROM nginx
 RUN apt-get update -y
 
 # install python, uwsgi, and supervisord
-RUN apt-get install -y supervisor uwsgi python3 python3-pip procps nano libgl1-mesa-glx
-RUN /usr/bin/pip3 install uwsgi==2.0.19 flask==1.1.2
+RUN apt-get install -y supervisor uwsgi python3 python3-pip procps nano libgl1-mesa-glx libglib2.0-0
+RUN /usr/bin/pip3 install uwsgi flask
 
 # Copy up cli side of the app
 COPY ./src/ /app
 
 # Apim specific
-RUN /usr/bin/pip3 install PyQt5==5.14 sip
+RUN /usr/bin/pip3 install PyQt5 sip
 
 # Source code file
 COPY ./web/ /webapp
