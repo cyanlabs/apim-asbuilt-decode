@@ -2,7 +2,10 @@
   "name": "apim-asbuilt-decode-web",
   "version": "1.0.0",
   "dependencies": {
-    "bootstrap": "^4.6.1"
+    "@forevolve/bootstrap-dark": "^1.0.0-alpha.1091",
+    "bootstrap": "4.5.3",
+    "jquery": "3.5.1",
+    "popper.js": "1.16.1"
   },
   "author": "Jiminald"
 }
