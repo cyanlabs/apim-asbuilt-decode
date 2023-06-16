@@ -20,6 +20,11 @@ ALLOWED_EXTENSIONS = {'xml', 'ab', 'abt'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+@app.after_request
+def add_security_headers(resp):
+    resp.headers['Access-Control-Allow-Origin']='https://cyanlabs.net'
+    return resp
+    
 @app.route('/')
 def index():
     return 'OK'
