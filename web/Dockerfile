@@ -1,17 +1,19 @@
-# Use the standard Nginx image from Docker Hub
-FROM nginx
+# Pinned so rebuilds are reproducible; bump deliberately (Debian 13 "trixie" base).
+FROM nginx:1.31.7-trixie
 
-RUN apt-get update -y
-
-# install python, uwsgi, and supervisord
-RUN apt-get install -y supervisor uwsgi python3 python3-pip procps nano libgl1-mesa-glx libglib2.0-0
-RUN /usr/bin/pip3 install uwsgi flask
+# Python, Flask, PyQt5 (encoder.py imports QtWidgets) and uWSGI all come from
+# Debian packages: Debian 12+ blocks system-wide pip installs (PEP 668), and this
+# needs no compiler.
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+      supervisor uwsgi uwsgi-plugin-python3 \
+      python3 python3-flask python3-pyqt5 \
+      procps libgl1 libglib2.0-0t64 && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy up cli side of the app
 COPY ./src/ /app
 
-# Apim specific
-RUN /usr/bin/pip3 install PyQt5 sip
 
 # Source code file
 COPY ./web/ /webapp
